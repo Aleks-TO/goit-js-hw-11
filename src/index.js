@@ -3,7 +3,6 @@ import { fetchImages } from './js/fetch-images';
 import { renderGallery } from './js/render-gallery';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
-
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const searchForm = document.querySelector('#search-form');
@@ -36,7 +35,7 @@ function onSearchForm(e) {
         alertNoImagesFound();
       } else {
         renderGallery(data.hits);
-        simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+        simpleLightBox = new SimpleLightbox('.gallery a');
         alertImagesFound(data);
 
         if (data.totalHits > perPage) {
@@ -61,9 +60,9 @@ function onLoadMoreBtn() {
 
       const totalPages = Math.ceil(data.totalHits / perPage);
 
-      if (page > totalPages) {
+      if (page >= totalPages) {
         loadMoreBtn.classList.add('is-hidden');
-        alertEndOfSearch();
+        // alertEndOfSearch();
       }
     })
     .catch(error => console.log(error));
